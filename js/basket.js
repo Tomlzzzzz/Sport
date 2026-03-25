@@ -31,29 +31,12 @@ const initAnimations = () => {
 
     const tl = gsap.timeline();
 
-    tl.to(".loader-text", {
-        opacity: 1,
-        y: 0,
+    tl.from(".navbar", {
+        y: -30,
+        opacity: 0,
         duration: 1,
         ease: "power3.out"
     })
-        .to(".loader-text", {
-            opacity: 0,
-            duration: 0.8,
-            delay: 0.4,
-            ease: "power2.inOut"
-        })
-        .to(".loader", {
-            yPercent: -100,
-            duration: 1.2,
-            ease: "power4.inOut"
-        }, "-=0.2")
-        .from(".navbar", {
-            y: -30,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out"
-        }, "-=0.8")
         .from(".title-line", {
             y: 100,
             opacity: 0,

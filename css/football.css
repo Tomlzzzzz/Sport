@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;500;700;900&family=Sora:wght@300;400;600;700&display=swap');
 
 :root {
     --bg-deep: #f8f5ec;
@@ -11,7 +11,11 @@
     --text: #1A1A1A;
     --text-muted: #f5f5f5;
     --border: rgba(148, 163, 184, 0.2);
+    --border-color: rgba(0, 0, 0, 0.08);
     --shadow: 0 25px 60px rgba(2, 23, 4, 0.25);
+    --nav-basket: #F26522;
+    --nav-foot: #22c55e;
+    --nav-athle: #E7B800;
 }
 
 * {
@@ -76,6 +80,7 @@ img {
     padding: 2.5rem 0 5rem;
 }
 
+.navbar,
 .nav {
     display: flex;
     align-items: center;
@@ -83,38 +88,106 @@ img {
     gap: 1.5rem;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(248, 245, 236, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
 .logo {
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.14em;
+    font-family: "Outfit", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
     text-transform: uppercase;
+    transition: color 0.4s ease;
+    color: var(--accent);
 }
 
 .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 40px;
+}
+
+.nav-link {
+    font-family: "Outfit", sans-serif;
+    font-weight: 700;
     font-size: 0.95rem;
-    color: var(--text);
-}
-
-.nav-links a {
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
 }
 
-.nav-links a::after {
+.nav-link::after {
     content: "";
     position: absolute;
+    bottom: 0;
     left: 0;
-    bottom: -6px;
-    width: 0;
+    width: 0%;
     height: 2px;
-    background: var(--accent);
     transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after,
-.nav-links a:focus-visible::after {
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
     width: 100%;
+}
+
+.nav-basket:hover {
+    color: var(--nav-basket);
+}
+
+.nav-basket:hover::after {
+    width: 100%;
+}
+
+.nav-basket::after {
+    background-color: var(--nav-basket);
+}
+
+.nav-foot:hover {
+    color: var(--nav-foot);
+}
+
+.nav-foot:hover::after {
+    width: 100%;
+}
+
+.nav-foot::after {
+    background-color: var(--nav-foot);
+}
+
+.nav-athle:hover {
+    color: var(--nav-athle);
+}
+
+.nav-athle:hover::after {
+    width: 100%;
+}
+
+.nav-athle::after {
+    background-color: var(--nav-athle);
 }
 
 .nav-cta {
@@ -667,7 +740,29 @@ img {
 }
 
 .footer {
-    padding: 2rem 0 3rem;
-    color: var(--text-muted);
+    padding: 0 0 3rem;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 6vw 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--text);
     font-size: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-inner {
+        flex-direction: column;
+    }
 }

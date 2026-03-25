@@ -6,7 +6,6 @@
     <title>Sport Street – Football</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- GSAP + plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
@@ -17,17 +16,16 @@
 
 <body>
     <header class="hero" id="top">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">Sport Street</div>
-                <div class="nav-links">
-                    <a href="#">Football</a>
-                    <a href="basketball.html">Basketball</a>
-                    <a href="athletisme.html">Athlétisme</a>
-                </div>
-                <button class="nav-cta" id="replay" type="button">Relancer</button>
-            </nav>
+        <nav class="navbar nav">
+            <div class="logo">Football</div>
+            <div class="nav-links">
+                <a href="basket.html" class="nav-link nav-basket">Basket</a>
+                <a href="football.html" class="nav-link nav-foot">Football</a>
+                <a href="athletisme.html" class="nav-link nav-athle">Athlétisme</a>
+            </div>
+        </nav>
 
+        <div class="container">
             <div class="hero-grid">
                 <div class="hero-copy">
                     <span class="eyebrow">INTRODUCTION</span>
@@ -177,195 +175,15 @@
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>à faire a la fin</p>
+        <div class="footer-inner container">
+            <p>PROJET • Football</p>
+            <a href="#top">Retour au debut</a>
         </div>
     </footer>
 
-    <script>
-        gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-        const introTl = gsap.timeline({
-            defaults: {
-                ease: "power3.out",
-                duration: 0.8
-            }
-        });
-
-        introTl
-            .from(".nav", { y: -30, autoAlpha: 0 })
-            .from(".hero-title .line", { y: 80, autoAlpha: 0, stagger: 0.12 }, "-=0.2")
-            .from(".hero-lead", { y: 30, autoAlpha: 0 }, "-=0.4")
-            .from(".hero-stats .stat", { y: 30, autoAlpha: 0, stagger: 0.1 }, "-=0.3")
-            .from(".hero-actions .btn", { y: 20, autoAlpha: 0, stagger: 0.12 }, "-=0.3")
-            .from(".field-card", { scale: 0.92, autoAlpha: 0 }, "-=0.4")
-            .from(".hero-note", { y: 20, autoAlpha: 0 }, "-=0.3");
-
-        const arcPath = document.querySelector(".ball-arc path");
-        if (arcPath) {
-            const length = arcPath.getTotalLength();
-            gsap.set(arcPath, { strokeDasharray: length, strokeDashoffset: length
-             });
-        }
-
-        const heroScrollTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "+=700",
-                scrub: 1,
-                pin: true
-            }
-        });
-
-        heroScrollTl
-                .to(".ball-spin", { x: 150, y: -80 }, 0)
-                .to(".ball-arc path", {
-                    filter: "drop-shadow(0 0 8px rgba(255,255,255,0.7))"
-                }, 0)
-                .to(".ball-arc path", { strokeDashoffset: 0 }, 0);
-
-        gsap.to(".ball-img", {
-            rotation: 360,
-            duration: 10,
-            repeat: -1,
-            ease: "none"
-        });
-
-
-        gsap.utils.toArray(".stat-number").forEach((stat) => {
-            const value = Number(stat.dataset.count || 0);
-            gsap.fromTo(
-                stat,
-                { innerText: 0 },
-                {
-                    innerText: value,
-                    duration: 1.6,
-                    ease: "power1.out",
-                    snap: { innerText: 1 },
-                    scrollTrigger: {
-                        trigger: stat,
-                        start: "top 85%"
-                    }
-                }
-            );
-        });
-
-        const benefitsSection = document.querySelector(".benefits");
-        const benefitsTrack = document.querySelector(".benefits-track");
-        const benefitsViewport = document.querySelector(".benefits-scroll");
-
-        if (benefitsSection && benefitsTrack && benefitsViewport) {
-            const getScrollAmount = () =>
-                Math.max(0, benefitsTrack.scrollWidth - benefitsViewport.clientWidth);
-            const getOffset = () => Math.min(benefitsViewport.clientWidth * 0.6, 360);
-            const getTravel = () => getScrollAmount() + getOffset() * 2;
-            const getScrollLength = () => getTravel() + Math.min(benefitsViewport.clientWidth * 0.6, 480);
-
-            const scrollTween = gsap.fromTo(benefitsTrack, {
-                x: () => getOffset()
-            }, {
-                x: () => -getScrollAmount() - getOffset(),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: benefitsSection,
-                    start: "top top",
-                    end: () => `+=${getScrollLength()}`,
-                    scrub: 1,
-                    pin: true,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true
-                }
-            });
-
-            gsap.utils.toArray(".benefit-card").forEach((card) => {
-                gsap.from(card, {
-                    autoAlpha: 0,
-                    y: 30,
-                    duration: 0.5,
-                    scrollTrigger: {
-                        trigger: card,
-                        containerAnimation: scrollTween,
-                        start: "center center"
-                    }
-                });
-            });
-        }
-
-        gsap.from(".football-card", {
-            scrollTrigger: {
-                trigger: ".football-grid",
-                start: "top 80%"
-            },
-            y: 60,
-            autoAlpha: 0,
-            duration: 0.9,
-            stagger: 0.12
-        });
-
-        gsap.from(".drill-item", {
-            scrollTrigger: {
-                trigger: ".drills",
-                start: "top 85%"
-            },
-            x: -40,
-            autoAlpha: 0,
-            duration: 0.7,
-            stagger: 0.1
-        });
-
-        gsap.from(".lab-card", {
-            scrollTrigger: {
-                trigger: ".lab-grid",
-                start: "top 80%"
-            },
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-            stagger: 0.12
-        });
-
-        gsap.to(".progress-bar", {
-            width: "100%",
-            scrollTrigger: {
-                trigger: ".gsap-lab",
-                start: "top 70%",
-                end: "bottom 20%",
-                scrub: 1
-            }
-        });
-
-        gsap.to(".typed-text", {
-            scrollTrigger: {
-                trigger: ".gsap-lab",
-                start: "top 70%"
-            },
-            duration: 3.2,
-            text: {
-                value: "Timeline • ScrollTrigger • TextPlugin • Stagger",
-                delimiter: ""
-            },
-            ease: "none"
-        });
-
-        gsap.from(".cta-card", {
-            scrollTrigger: {
-                trigger: ".cta",
-                start: "top 80%"
-            },
-            scale: 0.96,
-            autoAlpha: 0,
-            duration: 0.8
-        });
-
-        const replayBtn = document.querySelector("#replay");
-        if (replayBtn) {
-            replayBtn.addEventListener("click", () => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-                introTl.restart();
-            });
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/football.js"></script>
 </body>
 
 </html>
