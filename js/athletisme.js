@@ -1,5 +1,3 @@
-"use strict";
-
 document.addEventListener("DOMContentLoaded", () => {
     initMobileMenu();
     initAnimations();
@@ -32,39 +30,7 @@ function initMobileMenu() {
         });
     });
 
-    // Logo color logic
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        const rootStyles = getComputedStyle(document.documentElement);
-        const athleColor = rootStyles.getPropertyValue('--nav-athle').trim() || '#e7b800';
-        const basketColor = rootStyles.getPropertyValue('--nav-basket').trim() || '#f26522';
-        const footColor = rootStyles.getPropertyValue('--nav-foot').trim() || '#22c55e';
 
-        const navBasket = document.querySelector('.nav-basket');
-        const navFoot = document.querySelector('.nav-foot');
-        const navAthle = document.querySelector('.nav-athle');
-
-        const changeLogoColor = (color) => {
-            if (window.gsap) {
-                gsap.to(logo, { color, duration: 0.3, ease: 'power2.out' });
-            } else {
-                logo.style.color = color;
-            }
-        };
-
-        if (navBasket) {
-            navBasket.addEventListener('mouseenter', () => changeLogoColor(basketColor));
-            navBasket.addEventListener('mouseleave', () => changeLogoColor(athleColor));
-        }
-        if (navFoot) {
-            navFoot.addEventListener('mouseenter', () => changeLogoColor(footColor));
-            navFoot.addEventListener('mouseleave', () => changeLogoColor(athleColor));
-        }
-        if (navAthle) {
-            navAthle.addEventListener('mouseenter', () => changeLogoColor(athleColor));
-            navAthle.addEventListener('mouseleave', () => changeLogoColor(athleColor));
-        }
-    }
 }
 
 function initAnimations() {

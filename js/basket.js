@@ -1,4 +1,3 @@
-
 gsap.registerPlugin(ScrollTrigger);
 
 const initAnimations = () => {
@@ -299,28 +298,28 @@ const initAnimations = () => {
     const overlay = document.querySelector('.modal-overlay');
 
     const productDetails = {
-        'GENOUILLÃˆRES DE BASKETBALL': {
+        'GENOUILLÈRES DE BASKETBALL': {
             features: [
-                'Protection contre les chocs lÃ©gers',
+                'Protection contre les chocs légers',
                 'Maintien compressif pour les muscles',
-                'Tissu respirant Ã©vacuant la transpiration',
+                'Tissu respirant évacuant la transpiration',
                 'Confort optimal sans irritations'
             ]
         },
         'Chaussure de basketball Junior': {
             features: [
-                'Amorti rÃ©actif pour les sauts',
+                'Amorti réactif pour les sauts',
                 'Semelle non marquante pour le gymnase',
-                'Maintien de la cheville renforcÃ©',
-                'Design inspirÃ© des modÃ¨les NBA'
+                'Maintien de la cheville renforcé',
+                'Design inspiré des modèles NBA'
             ]
         },
         'Fauteuil roulant basket': {
             features: [
-                'Cadre en aluminium ultra-lÃ©ger',
-                'Roues carrossÃ©es pour la stabilitÃ©',
-                'Assise rÃ©glable et personnalisable',
-                'Conception robuste pour la compÃ©tition'
+                'Cadre en aluminium ultra-léger',
+                'Roues carrossées pour la stabilité',
+                'Assise réglable et personnalisable',
+                'Conception robuste pour la compétition'
             ]
         }
     };
@@ -348,7 +347,7 @@ const initAnimations = () => {
             li.style.marginBottom = '12px';
             li.style.fontSize = '0.95rem';
             li.style.color = '#333';
-            li.innerHTML = `<span style="position:absolute; left:0; color:var(--accent-color); font-weight:bold;">â€¢</span>${f}`;
+            li.innerHTML = `<span style="position:absolute; left:0; color:var(--accent-color); font-weight:bold;"></span>${f}`;
             modalFeatures.appendChild(li);
         });
 
