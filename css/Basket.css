@@ -8,6 +8,11 @@
   --athle-color: #E7B800;
 }
 
+:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.45);
+  outline-offset: 4px;
+}
+
 html {
   scroll-behavior: smooth;
 }

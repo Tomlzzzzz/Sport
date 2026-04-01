@@ -3,30 +3,14 @@ gsap.registerPlugin(ScrollTrigger);
 const initAnimations = () => {
 
     const logo = document.querySelector('.logo');
-    const navBasket = document.querySelector('.nav-basket');
-    const navFoot = document.querySelector('.nav-foot');
-    const navAthle = document.querySelector('.nav-athle');
-
-    const defaultColor = getComputedStyle(document.body).getPropertyValue('--text-color').trim();
     const basketColor = getComputedStyle(document.body).getPropertyValue('--accent-color').trim();
-    const footColor = getComputedStyle(document.body).getPropertyValue('--foot-color').trim();
-    const athleColor = getComputedStyle(document.body).getPropertyValue('--athle-color').trim();
 
     const changeLogoColor = (color) => {
         gsap.to(logo, { color: color, duration: 0.3, ease: 'power2.out' });
     };
 
-    if (navBasket && logo) {
-        navBasket.addEventListener('mouseenter', () => changeLogoColor(basketColor));
-        navBasket.addEventListener('mouseleave', () => changeLogoColor(defaultColor));
-    }
-    if (navFoot && logo) {
-        navFoot.addEventListener('mouseenter', () => changeLogoColor(footColor));
-        navFoot.addEventListener('mouseleave', () => changeLogoColor(defaultColor));
-    }
-    if (navAthle && logo) {
-        navAthle.addEventListener('mouseenter', () => changeLogoColor(athleColor));
-        navAthle.addEventListener('mouseleave', () => changeLogoColor(defaultColor));
+    if (logo) {
+        changeLogoColor(basketColor);
     }
 
     const tl = gsap.timeline();

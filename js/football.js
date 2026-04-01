@@ -106,16 +106,56 @@
             });
         }
 
-    gsap.from(".football-card", {
-        scrollTrigger: {
-        trigger: ".football-grid",
-    start: "top 80%"
-            },
-    y: 60,
-    autoAlpha: 0,
-    duration: 0.9,
-    stagger: 0.12
+    const footballSection = document.querySelector(".football-focus");
+    if (footballSection) {
+        const meterSegments = footballSection.querySelectorAll(".meter span");
+        meterSegments.forEach((segment) => {
+            segment.style.setProperty("--meter-fill", "0");
         });
+
+        const footballTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: footballSection,
+                start: "top 75%",
+                once: true
+            }
+        });
+
+        footballTl
+            .from(".football-focus .section-head .eyebrow", {
+                y: 18,
+                autoAlpha: 0,
+                duration: 0.45,
+                ease: "power2.out"
+            })
+            .from(".football-focus .section-head h2", {
+                y: 28,
+                autoAlpha: 0,
+                duration: 0.6,
+                ease: "power3.out"
+            }, "-=0.2")
+            .from(".football-focus .section-head .section-lead", {
+                y: 24,
+                autoAlpha: 0,
+                duration: 0.55,
+                ease: "power2.out"
+            }, "-=0.3")
+            .from(".football-focus .football-card", {
+                y: 48,
+                autoAlpha: 0,
+                rotateX: -8,
+                transformOrigin: "center top",
+                duration: 0.75,
+                stagger: 0.14,
+                ease: "power3.out"
+            }, "-=0.2")
+            .to(meterSegments, {
+                "--meter-fill": 1,
+                duration: 0.45,
+                stagger: 0.07,
+                ease: "power2.out"
+            }, "-=0.35");
+    }
 
     gsap.from(".drill-item", {
         scrollTrigger: {
