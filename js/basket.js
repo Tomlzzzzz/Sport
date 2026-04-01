@@ -324,7 +324,10 @@ const initAnimations = () => {
         }
     };
 
+    let lastFocusedElement = null;
+
     const openModal = (card) => {
+        lastFocusedElement = document.activeElement;
         const title = card.querySelector('h3').innerText;
         const tag = card.querySelector('.equip-tag').innerText;
         const desc = card.querySelector('p').innerText;
@@ -352,16 +355,23 @@ const initAnimations = () => {
         });
 
         modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
         gsap.to(modal, { opacity: 1, duration: 0.4 });
         gsap.to('.modal-container', { scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
         document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            closeBtn.focus();
+        }, 100);
     };
 
     const closeModal = () => {
         gsap.to(modal, {
             opacity: 0, duration: 0.3, onComplete: () => {
                 modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                if (lastFocusedElement) lastFocusedElement.focus();
             }
         });
         gsap.to('.modal-container', { scale: 0.9, duration: 0.3 });
@@ -369,16 +379,47 @@ const initAnimations = () => {
 
     equipCards.forEach(card => {
         card.style.cursor = 'pointer';
-        card.addEventListener('click', (e) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Voir les détails de ${card.querySelector('h3').innerText}`);
+
+        const handleClick = (e) => {
             if (e.target.closest('.equip-link')) return;
             openModal(card);
+        };
+
+        card.addEventListener('click', handleClick);
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleClick(e);
+            }
         });
     });
 
     closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', closeModal);
+
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
+
+        if (e.key === 'Tab' && modal.style.display === 'flex') {
+            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
     });
 };
 
