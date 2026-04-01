@@ -8,6 +8,10 @@
   --athle-color: #E7B800;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -57,7 +61,7 @@ a {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: color 0.4s ease;
-  color: var(--accent-color); /* Kept user edit */
+  color: var(--accent-color); 
 }
 
 .nav-links {
@@ -152,7 +156,6 @@ a {
   color: #4A4A4A;
 }
 
-/* Redesigned Hero Image */
 .hero-image-container {
   flex: 1.2;
   height: 85vh;
@@ -386,14 +389,18 @@ a {
 }
 
 .footer {
-  text-align: center;
-  padding: 60px 5%;
-  background-color: var(--secondary-color);
-  font-size: 1rem;
-  color: #666;
-  font-weight: 500;
-  margin: 0 2% 2%;
-  border-radius: 40px 0 40px 0;
+    padding: 0 5% 40px;
+}
+
+.footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #666;
 }
 
 .map-layout {
@@ -646,6 +653,11 @@ a {
     margin: 0;
     border-radius: 0;
   }
+
+  .footer-inner {
+        flex-direction: column;
+    }
+    
   .map-layout {
     flex-direction: column;
     height: auto;
