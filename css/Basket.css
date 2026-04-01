@@ -4,7 +4,7 @@
   --accent-color: #F26522;
   --secondary-color: #EFEBDF;
   --border-color: rgba(0, 0, 0, 0.08);
-  --foot-color: #E7B800;
+  --foot-color: #22c55e;
   --athle-color: #E7B800;
 }
 
@@ -587,11 +587,11 @@ a {
 }
 
 .equip-card.handibasket {
-  border-top: 4px solid #0055A4; /* Handisport blue */
+  border-top: 4px solid #F26522; /* Handisport blue */
 }
 .equip-card.handibasket .equip-tag {
   background: rgba(0, 85, 164, 0.1);
-  color: #0055A4;
+  color: #F26522;
 }
 
 .equip-card:hover .equip-img img {

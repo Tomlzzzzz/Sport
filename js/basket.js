@@ -359,10 +359,12 @@ const initAnimations = () => {
     };
 
     const closeModal = () => {
-        gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }});
+        gsap.to(modal, {
+            opacity: 0, duration: 0.3, onComplete: () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
         gsap.to('.modal-container', { scale: 0.9, duration: 0.3 });
     };
 
