@@ -1,10 +1,31 @@
-﻿
+
 gsap.registerPlugin(ScrollTrigger);
 
 const initAnimations = () => {
 
     const logo = document.querySelector('.logo');
     const basketColor = getComputedStyle(document.body).getPropertyValue('--accent-color').trim();
+    const burger = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-link');
+
+    const toggleMenu = () => {
+        burger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    };
+
+    if (burger) {
+        burger.addEventListener('click', toggleMenu);
+    }
+
+    navLinksItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
 
     const changeLogoColor = (color) => {
         gsap.to(logo, { color: color, duration: 0.3, ease: 'power2.out' });

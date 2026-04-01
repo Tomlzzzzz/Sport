@@ -1,4 +1,28 @@
-﻿    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+document.addEventListener('DOMContentLoaded', () => {
+    const burger = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-link');
+
+    const toggleMenu = () => {
+        burger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    };
+
+    if (burger) {
+        burger.addEventListener('click', toggleMenu);
+    }
+
+    navLinksItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+});
+
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
     const introTl = gsap.timeline({
         defaults: {
