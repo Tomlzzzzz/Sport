@@ -179,54 +179,51 @@
 
             <div class="filters fade-up" style="transition-delay: 0.1s;">
                 <button class="filter-btn active" data-filter="all">Tout voir</button>
-                <button class="filter-btn" data-filter="age">Enfants / Adultes</button>
+                <button class="filter-btn" data-filter="age">Enfants / Junior</button>
                 <button class="filter-btn" data-filter="genre">Homme / Femme</button>
                 <button class="filter-btn" data-filter="handicap">Handibasket</button>
             </div>
 
             <div class="equipment-grid">
-                <div class="equip-card fade-up" data-category="genre age" style="transition-delay: 0.2s;">
+                <div class="equip-card fade-up homme-femme" data-category="genre" style="transition-delay: 0.2s;">
                     <div class="equip-img">
-                        <img src="https://images.unsplash.com/photo-1552346154-21d32810baa3?q=80&w=800&auto=format&fit=crop"
+                        <img src="img/Capture d’écran_1-4-2026_85126_www.decathlon.ch.jpeg"
                             alt="Chaussure de basket-ball Tarmak">
                     </div>
                     <div class="equip-info">
-                        <span class="equip-tag">Mixte / Adulte</span>
-                        <h3>Tarmak Fast 500 Low</h3>
-                        <p>Chaussure reconnue pour sa très grande légèreté. Elle offre une liberté totale de cheville et
-                            un amorti performant et dynamique.</p>
-                        <a href="https://www.decathlon.fr/p/chaussure-de-basket-ball-basse-adulte-fast-500-noire/_/R-p-324546"
-                            target="_blank" class="equip-link">Voir sur Decathlon</a>
+                        <span class="equip-tag">Homme / Femme</span>
+                        <h3>GENOUILLÈRES DE BASKETBALL</h3>
+                        <p>Cette genouillère de protection vous apportera également une sensation de maintien très appréciable.</p>
+                        <a href="https://www.decathlon.ch/fr/p/genouilleres-de-basketball-nba-protection-lot-de-2-adulte/193221/c1m8497417"
+                            target="_blank" class="equip-link">Découvrir le produit</a>
                     </div>
                 </div>
 
-                <div class="equip-card fade-up" data-category="age" style="transition-delay: 0.3s;">
+                <div class="equip-card fade-up enfant-adulte" data-category="age" style="transition-delay: 0.3s;">
                     <div class="equip-img">
-                        <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop"
-                            alt="Ballon de basket-ball Tarmak">
+                        <img src="img/Capture d’écran_1-4-2026_84423_www.decathlon.fr.jpeg"
+                            alt="Chaussure de basketball Junior">
                     </div>
                     <div class="equip-info">
-                        <span class="equip-tag">Enfant (Taille 5)</span>
-                        <h3>Tarmak BT100 Taille 5</h3>
-                        <p>Idéal pour les enfants de 7 à 10 ans. Doté de rainures creusées et d'une coque en mousse pour
-                            un meilleur grip et toucher doux.</p>
-                        <a href="https://www.decathlon.fr/p/ballon-de-basket-ball-enfant-taille-5-bt100-orange/_/R-p-324510"
-                            target="_blank" class="equip-link">Voir sur Decathlon</a>
+                        <span class="equip-tag">Enfant / Junior</span>
+                        <h3>Chaussure de basketball Junior</h3>
+                        <p>Inspirée de la technologie All-Pro Nitro, cette chaussure de basketball Junior soutient votre jeu. </p>
+                        <a href="https://www.decathlon.fr/p/chaussure-de-basketball-junior-puma-court-pro-et/_/R-p-362994?mc=8998995"
+                            target="_blank" class="equip-link">Découvrir le produit</a>
                     </div>
                 </div>
 
-                <div class="equip-card fade-up" data-category="handicap" style="transition-delay: 0.4s;">
+                <div class="equip-card fade-up handibasket" data-category="handicap" style="transition-delay: 0.4s;">
                     <div class="equip-img">
-                        <img src="https://images.unsplash.com/photo-1580961815809-fb4d6f6eecaf?q=80&w=800&auto=format&fit=crop"
+                        <img src="img/Capture d’écran_1-4-2026_85344_www.decathlon.fr.jpeg"
                             alt="Fauteuil roulant de sport">
                     </div>
                     <div class="equip-info">
-                        <span class="equip-tag">Handisport</span>
-                        <h3>Fauteuil Sport TW500</h3>
-                        <p>Fauteuil conçu avec des para-athlètes. Appareil médical certifié norme EN 12183, ajustable,
-                            léger et adapté à la pratique en club.</p>
-                        <a href="https://www.decathlon.fr/p/fauteuil-roulant-de-sport-reglable-tw500/_/R-p-338243"
-                            target="_blank" class="equip-link">Voir sur Decathlon</a>
+                        <span class="equip-tag">Handibasket</span>
+                        <h3>Fauteuil roulant basket</h3>
+                        <p>Conçu en collaboration avec des personnes en situation de handicap qui pratiquent le basket fauteuil.</p>
+                        <a href="https://www.decathlon.fr/p/fauteuil-roulant-basket-24-reglable-bw500/_/R-p-343310?msockid=1c7f20922f446ded354835a92e036cfe"
+                            target="_blank" class="equip-link">Découvrir le produit</a>
                     </div>
                 </div>
             </div>
@@ -239,6 +236,30 @@
             <a href="#top">Retour au debut</a>
         </div>
     </footer>
+
+    <div class="product-modal" id="productModal" aria-hidden="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Fermer la modal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="" alt="" id="modalImg">
+                </div>
+                <div class="modal-content">
+                    <span class="equip-tag" id="modalTag"></span>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDesc"></p>
+                    <div class="modal-details">
+                        <h3>Détails techniques</h3>
+                        <ul id="modalFeatures">
+                            <!-- Dynamic content -->
+                        </ul>
+                    </div>
+                    <a href="" target="_blank" class="equip-link" id="modalLink">Acheter le produit</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

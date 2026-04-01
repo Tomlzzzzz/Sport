@@ -200,20 +200,184 @@ const initAnimations = () => {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            if (btn.classList.contains('active')) return;
+
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
 
+            // --- FLIP Animation Start ---
+            // 1. Record the initial positions of all cards
+            const state = [];
             equipCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
-                    gsap.to(card, { scale: 1, opacity: 1, duration: 0.4, display: 'block', ease: 'power2.out' });
+                state.push({
+                    el: card,
+                    rect: card.getBoundingClientRect(),
+                    isVisible: window.getComputedStyle(card).display !== 'none'
+                });
+            });
+
+            // 2. Perform the filtering (immediate change)
+            equipCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const isMatched = filter === 'all' || category.includes(filter);
+
+                if (isMatched) {
+                    // Temporarily set display to block to calculate new layout
+                    card.style.display = 'block';
                 } else {
-                    gsap.to(card, { scale: 0.8, opacity: 0, duration: 0.4, display: 'none', ease: 'power2.in' });
+                    // We don't hide it immediately, we fade it out first
+                    gsap.to(card, {
+                        scale: 0.8,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            card.style.display = 'none';
+                        }
+                    });
                 }
             });
+
+            // Refresh ScrollTrigger to account for layout changes
             ScrollTrigger.refresh();
+
+            // 3. Animate the remaining/new cards from their old positions
+            equipCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const isMatched = filter === 'all' || category.includes(filter);
+
+                if (isMatched) {
+                    const oldState = state.find(s => s.el === card);
+                    const newRect = card.getBoundingClientRect();
+
+                    if (oldState && oldState.isVisible) {
+                        // Invert: Calculate the delta from old to new position
+                        const dx = oldState.rect.left - newRect.left;
+                        const dy = oldState.rect.top - newRect.top;
+
+                        if (dx !== 0 || dy !== 0) {
+                            // Play: animate from the delta back to 0
+                            gsap.fromTo(card,
+                                { x: dx, y: dy },
+                                { x: 0, y: 0, duration: 0.6, ease: "power3.out", delay: 0.05 }
+                            );
+                        }
+                    } else {
+                        // Fade in new items
+                        gsap.fromTo(card,
+                            { opacity: 0, scale: 0.9, x: 0, y: 0 },
+                            { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out", delay: 0.1 }
+                        );
+                    }
+                }
+            });
+            // --- FLIP Animation End ---
         });
+    });
+
+    // Hover effect using GSAP since CSS transitions on transform were removed for consistency
+    equipCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, { y: -15, duration: 0.3, ease: 'power2.out' });
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' });
+        });
+    });
+
+    // --- Modal Logic ---
+    const modal = document.getElementById('productModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTag = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalFeatures = document.getElementById('modalFeatures');
+    const modalLink = document.getElementById('modalLink');
+    const closeBtn = document.querySelector('.modal-close');
+    const overlay = document.querySelector('.modal-overlay');
+
+    const productDetails = {
+        'GENOUILLÈRES DE BASKETBALL': {
+            features: [
+                'Protection contre les chocs légers',
+                'Maintien compressif pour les muscles',
+                'Tissu respirant évacuant la transpiration',
+                'Confort optimal sans irritations'
+            ]
+        },
+        'Chaussure de basketball Junior': {
+            features: [
+                'Amorti réactif pour les sauts',
+                'Semelle non marquante pour le gymnase',
+                'Maintien de la cheville renforcé',
+                'Design inspiré des modèles NBA'
+            ]
+        },
+        'Fauteuil roulant basket': {
+            features: [
+                'Cadre en aluminium ultra-léger',
+                'Roues carrossées pour la stabilité',
+                'Assise réglable et personnalisable',
+                'Conception robuste pour la compétition'
+            ]
+        }
+    };
+
+    const openModal = (card) => {
+        const title = card.querySelector('h3').innerText;
+        const tag = card.querySelector('.equip-tag').innerText;
+        const desc = card.querySelector('p').innerText;
+        const img = card.querySelector('img').src;
+        const link = card.querySelector('.equip-link').href;
+        const details = productDetails[title] || { features: ['Produit haute performance', 'Confort garanti'] };
+
+        modalImg.src = img;
+        modalTag.className = card.querySelector('.equip-tag').className;
+        modalTag.innerText = tag;
+        modalTitle.innerText = title;
+        modalDesc.innerText = desc;
+        modalLink.href = link;
+
+        modalFeatures.innerHTML = '';
+        details.features.forEach(f => {
+            const li = document.createElement('li');
+            li.style.position = 'relative';
+            li.style.paddingLeft = '25px';
+            li.style.marginBottom = '12px';
+            li.style.fontSize = '0.95rem';
+            li.style.color = '#333';
+            li.innerHTML = `<span style="position:absolute; left:0; color:var(--accent-color); font-weight:bold;">•</span>${f}`;
+            modalFeatures.appendChild(li);
+        });
+
+        modal.style.display = 'flex';
+        gsap.to(modal, { opacity: 1, duration: 0.4 });
+        gsap.to('.modal-container', { scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }});
+        gsap.to('.modal-container', { scale: 0.9, duration: 0.3 });
+    };
+
+    equipCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.equip-link')) return;
+            openModal(card);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
     });
 };
 
