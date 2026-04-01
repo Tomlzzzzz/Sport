@@ -1,76 +1,86 @@
-(() => {
-    const burger = document.querySelector('.burger-menu');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinksItems = document.querySelectorAll('.nav-link');
+"use strict";
 
-    const toggleMenu = () => {
-        burger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-    };
+document.addEventListener("DOMContentLoaded", () => {
+    initMobileMenu();
+    initAnimations();
+    initCardInteractivity();
+});
 
-    if (burger) {
-        burger.addEventListener('click', toggleMenu);
+function initMobileMenu() {
+    const burger = document.querySelector(".burger-menu");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!burger || !navLinks) {
+        return;
     }
 
-    navLinksItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
+    const navItems = document.querySelectorAll(".nav-link");
+
+    const toggleMenu = () => {
+        burger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+        document.body.style.overflow = navLinks.classList.contains("active") ? "hidden" : "";
+    };
+
+    burger.addEventListener("click", toggleMenu);
+
+    navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            if (navLinks.classList.contains("active")) {
                 toggleMenu();
             }
         });
     });
 
+    // Logo color logic
     const logo = document.querySelector('.logo');
-    const navBasket = document.querySelector('.nav-basket');
-    const navFoot = document.querySelector('.nav-foot');
-    const navAthle = document.querySelector('.nav-athle');
-
     if (logo) {
-        const athleColor = getComputedStyle(document.body).getPropertyValue('--nav-athle').trim();
-        const basketColor = getComputedStyle(document.body).getPropertyValue('--nav-basket').trim();
-        const footColor = getComputedStyle(document.body).getPropertyValue('--nav-foot').trim();
+        const rootStyles = getComputedStyle(document.documentElement);
+        const athleColor = rootStyles.getPropertyValue('--nav-athle').trim() || '#e7b800';
+        const basketColor = rootStyles.getPropertyValue('--nav-basket').trim() || '#f26522';
+        const footColor = rootStyles.getPropertyValue('--nav-foot').trim() || '#22c55e';
+
+        const navBasket = document.querySelector('.nav-basket');
+        const navFoot = document.querySelector('.nav-foot');
+        const navAthle = document.querySelector('.nav-athle');
 
         const changeLogoColor = (color) => {
-            if (!window.gsap) {
+            if (window.gsap) {
+                gsap.to(logo, { color, duration: 0.3, ease: 'power2.out' });
+            } else {
                 logo.style.color = color;
-                return;
             }
-
-            gsap.to(logo, { color, duration: 0.3, ease: 'power2.out' });
         };
 
         if (navBasket) {
             navBasket.addEventListener('mouseenter', () => changeLogoColor(basketColor));
             navBasket.addEventListener('mouseleave', () => changeLogoColor(athleColor));
         }
-
         if (navFoot) {
             navFoot.addEventListener('mouseenter', () => changeLogoColor(footColor));
             navFoot.addEventListener('mouseleave', () => changeLogoColor(athleColor));
         }
-
         if (navAthle) {
             navAthle.addEventListener('mouseenter', () => changeLogoColor(athleColor));
             navAthle.addEventListener('mouseleave', () => changeLogoColor(athleColor));
         }
     }
+}
 
-    if (!window.gsap) {
+function initAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) {
         return;
     }
+
+    gsap.registerPlugin(ScrollTrigger);
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
         return;
     }
 
-    gsap.registerPlugin(ScrollTrigger);
-
     const introTl = gsap.timeline({
-        defaults: {
-            ease: 'power3.out'
-        }
+        defaults: { ease: 'power3.out' }
     });
 
     introTl
@@ -120,9 +130,7 @@
     });
 
     gsap.utils.toArray('.fade-up').forEach((element) => {
-        if (element.closest('.hero-stats')) {
-            return;
-        }
+        if (element.closest('.hero-stats')) return;
 
         gsap.from(element, {
             y: 55,
@@ -137,8 +145,7 @@
     });
 
     gsap.utils.toArray('.parallax-img').forEach((image) => {
-        gsap.fromTo(
-            image,
+        gsap.fromTo(image,
             { yPercent: -8, scale: 1.12 },
             {
                 yPercent: 8,
@@ -165,6 +172,10 @@
         });
     });
 
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+
+function initCardInteractivity() {
     gsap.utils.toArray('.gallery-card').forEach((card) => {
         card.addEventListener('click', () => {
             gsap.utils.toArray('.gallery-card').forEach((other) => {
@@ -174,25 +185,20 @@
         });
 
         const media = card.querySelector('img');
-        if (!media) {
-            return;
-        }
-
-        gsap.fromTo(
-            media,
-            { scale: 1.08 },
-            {
-                scale: 1,
-                duration: 1.2,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 85%'
+        if (media && window.gsap) {
+            gsap.fromTo(media,
+                { scale: 1.08 },
+                {
+                    scale: 1,
+                    duration: 1.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%'
+                    }
                 }
-            }
-        );
+            );
+        }
     });
-
-    window.addEventListener('load', () => ScrollTrigger.refresh());
-})();
+}
 

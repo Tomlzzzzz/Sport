@@ -23,6 +23,12 @@
     outline-offset: 4px;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -39,8 +45,7 @@ body {
         var(--bg-mid);
     color: var(--text);
     min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
+    line-height: 1.6;
 }
 
 body::before {
@@ -99,6 +104,8 @@ img {
     transform: rotate(-2deg) scale(1.05);
     margin: 70px 0 90px;
     box-shadow: 0 10px 30px rgba(34, 197, 94, 0.22);
+    position: relative;
+    width: 100%;
 }
 
 .marquee {
