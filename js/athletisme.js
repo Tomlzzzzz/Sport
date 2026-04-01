@@ -166,6 +166,13 @@
     });
 
     gsap.utils.toArray('.gallery-card').forEach((card) => {
+        card.addEventListener('click', () => {
+            gsap.utils.toArray('.gallery-card').forEach((other) => {
+                if (other !== card) other.classList.remove('active');
+            });
+            card.classList.toggle('active');
+        });
+
         const media = card.querySelector('img');
         if (!media) {
             return;
