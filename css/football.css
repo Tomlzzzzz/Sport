@@ -18,6 +18,11 @@
     --nav-athle: #E7B800;
 }
 
+:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.45);
+    outline-offset: 4px;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -73,15 +78,47 @@ img {
 }
 
 .container {
-    width: min(1200px, 100%);
+    width: min(1500px, 100%);
     margin: 0 auto;
-    padding: 0 6vw;
+    padding: 0 5%;
     position: relative;
     z-index: 1;
 }
 
 .hero {
     padding: 2.5rem 0 5rem;
+}
+
+.marquee-container {
+    padding: 36px 0;
+    background-color: var(--accent);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    transform: rotate(-2deg) scale(1.05);
+    margin: 70px 0 90px;
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.22);
+}
+
+.marquee {
+    display: inline-block;
+    width: max-content;
+    font-family: "Outfit", sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    animation: marquee-scroll 18s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-33.33%);
+    }
 }
 
 .navbar,
@@ -297,7 +334,7 @@ img {
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 20px rgba(250, 204, 21, 0.25);
+    box-shadow: 0 12px 20px rgba(4, 219, 4, 0.25);
 }
 
 .btn-ghost {
@@ -529,7 +566,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    box-shadow: var(--shadow);
+    
     position: relative;
     overflow: hidden;
     flex: 0 0 clamp(240px, 28vw, 300px);
@@ -620,6 +657,7 @@ img {
     border-radius: 999px;
     background: rgba(148, 163, 184, 0.2);
     position: relative;
+    overflow: hidden;
 }
 
 .meter span::after {
@@ -629,6 +667,8 @@ img {
     border-radius: inherit;
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
     opacity: 0.7;
+    transform-origin: left center;
+    transform: scaleX(var(--meter-fill, 1));
 }
 
 .drills {
@@ -765,6 +805,10 @@ img {
 }
 
 @media (max-width: 768px) {
+    .marquee {
+        font-size: 1.35rem;
+    }
+
     .footer-inner {
         flex-direction: column;
     }

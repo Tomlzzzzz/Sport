@@ -98,6 +98,10 @@
     });
 
     gsap.utils.toArray('.fade-up').forEach((element) => {
+        if (element.closest('.hero-stats')) {
+            return;
+        }
+
         gsap.from(element, {
             y: 55,
             opacity: 0,

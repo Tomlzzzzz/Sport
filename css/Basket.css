@@ -4,8 +4,13 @@
   --accent-color: #F26522;
   --secondary-color: #EFEBDF;
   --border-color: rgba(0, 0, 0, 0.08);
-  --foot-color: #E7B800;
+  --foot-color: #22c55e;
   --athle-color: #E7B800;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.45);
+  outline-offset: 4px;
 }
 
 html {
