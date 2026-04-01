@@ -1,4 +1,4 @@
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+﻿    gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
     const introTl = gsap.timeline({
         defaults: {
@@ -196,7 +196,7 @@
             },
     duration: 3.2,
     text: {
-        value: "Timeline • ScrollTrigger • TextPlugin • Stagger",
+        value: "Timeline â€¢ ScrollTrigger â€¢ TextPlugin â€¢ Stagger",
     delimiter: ""
             },
     ease: "none"
@@ -219,3 +219,4 @@
             introTl.restart();
         });
         }
+

@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollTrigger);
+﻿gsap.registerPlugin(ScrollTrigger);
 
 const initAnimations = () => {
 
@@ -191,8 +191,7 @@ const initAnimations = () => {
 
             const filter = btn.getAttribute('data-filter');
 
-            // --- FLIP Animation Start ---
-            // 1. Record the initial positions of all cards
+
             const state = [];
             equipCards.forEach(card => {
                 state.push({
@@ -202,16 +201,15 @@ const initAnimations = () => {
                 });
             });
 
-            // 2. Perform the filtering (immediate change)
             equipCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 const isMatched = filter === 'all' || category.includes(filter);
 
                 if (isMatched) {
-                    // Temporarily set display to block to calculate new layout
+
                     card.style.display = 'block';
                 } else {
-                    // We don't hide it immediately, we fade it out first
+
                     gsap.to(card, {
                         scale: 0.8,
                         opacity: 0,
@@ -224,10 +222,8 @@ const initAnimations = () => {
                 }
             });
 
-            // Refresh ScrollTrigger to account for layout changes
             ScrollTrigger.refresh();
 
-            // 3. Animate the remaining/new cards from their old positions
             equipCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 const isMatched = filter === 'all' || category.includes(filter);
@@ -237,19 +233,19 @@ const initAnimations = () => {
                     const newRect = card.getBoundingClientRect();
 
                     if (oldState && oldState.isVisible) {
-                        // Invert: Calculate the delta from old to new position
+
                         const dx = oldState.rect.left - newRect.left;
                         const dy = oldState.rect.top - newRect.top;
 
                         if (dx !== 0 || dy !== 0) {
-                            // Play: animate from the delta back to 0
+
                             gsap.fromTo(card,
                                 { x: dx, y: dy },
                                 { x: 0, y: 0, duration: 0.6, ease: "power3.out", delay: 0.05 }
                             );
                         }
                     } else {
-                        // Fade in new items
+
                         gsap.fromTo(card,
                             { opacity: 0, scale: 0.9, x: 0, y: 0 },
                             { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out", delay: 0.1 }
@@ -257,11 +253,10 @@ const initAnimations = () => {
                     }
                 }
             });
-            // --- FLIP Animation End ---
+
         });
     });
 
-    // Hover effect using GSAP since CSS transitions on transform were removed for consistency
     equipCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, { y: -15, duration: 0.3, ease: 'power2.out' });
@@ -271,7 +266,6 @@ const initAnimations = () => {
         });
     });
 
-    // --- Modal Logic ---
     const modal = document.getElementById('productModal');
     const modalImg = document.getElementById('modalImg');
     const modalTag = document.getElementById('modalTag');
@@ -283,28 +277,28 @@ const initAnimations = () => {
     const overlay = document.querySelector('.modal-overlay');
 
     const productDetails = {
-        'GENOUILLÈRES DE BASKETBALL': {
+        'GENOUILLÃˆRES DE BASKETBALL': {
             features: [
-                'Protection contre les chocs légers',
+                'Protection contre les chocs lÃ©gers',
                 'Maintien compressif pour les muscles',
-                'Tissu respirant évacuant la transpiration',
+                'Tissu respirant Ã©vacuant la transpiration',
                 'Confort optimal sans irritations'
             ]
         },
         'Chaussure de basketball Junior': {
             features: [
-                'Amorti réactif pour les sauts',
+                'Amorti rÃ©actif pour les sauts',
                 'Semelle non marquante pour le gymnase',
-                'Maintien de la cheville renforcé',
-                'Design inspiré des modèles NBA'
+                'Maintien de la cheville renforcÃ©',
+                'Design inspirÃ© des modÃ¨les NBA'
             ]
         },
         'Fauteuil roulant basket': {
             features: [
-                'Cadre en aluminium ultra-léger',
-                'Roues carrossées pour la stabilité',
-                'Assise réglable et personnalisable',
-                'Conception robuste pour la compétition'
+                'Cadre en aluminium ultra-lÃ©ger',
+                'Roues carrossÃ©es pour la stabilitÃ©',
+                'Assise rÃ©glable et personnalisable',
+                'Conception robuste pour la compÃ©tition'
             ]
         }
     };
@@ -332,7 +326,7 @@ const initAnimations = () => {
             li.style.marginBottom = '12px';
             li.style.fontSize = '0.95rem';
             li.style.color = '#333';
-            li.innerHTML = `<span style="position:absolute; left:0; color:var(--accent-color); font-weight:bold;">•</span>${f}`;
+            li.innerHTML = `<span style="position:absolute; left:0; color:var(--accent-color); font-weight:bold;">â€¢</span>${f}`;
             modalFeatures.appendChild(li);
         });
 
@@ -368,3 +362,4 @@ const initAnimations = () => {
 };
 
 window.addEventListener("load", initAnimations);
+

@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
     const logo = document.querySelector('.logo');
     const navBasket = document.querySelector('.nav-basket');
     const navFoot = document.querySelector('.nav-foot');
@@ -166,3 +166,4 @@
 
     window.addEventListener('load', () => ScrollTrigger.refresh());
 })();
+

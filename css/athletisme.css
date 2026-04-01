@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;500;700;900&family=Sora:wght@300;400;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;500;700;900&family=Sora:wght@300;400;600;700&display=swap');
 
 :root {
     --bg-color: #f8f5ec;
@@ -749,13 +749,13 @@ img {
   width: 100%;
 }
 
-/* Beautiful dynamic shape morph cards */
+
 .equip-card {
   background: #FFFFFF;
   border-radius: 40px 10px 40px 10px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-  /* Transition only for non-transform properties to avoid conflict with GSAP */
+  
   transition: border-radius 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, border-top 0.4s ease;
   border: 1px solid var(--border-color);
   position: relative;
@@ -765,7 +765,7 @@ img {
   box-shadow: 0 25px 45px rgba(242, 101, 34, 0.15);
 }
 
-/* Specific styles for the three classes */
+
 .equip-card.homme-femme {
   border-top: 4px solid var(--accent-color);
 }
@@ -783,7 +783,7 @@ img {
 }
 
 .equip-card.handibasket {
-  border-top: 4px solid #F26522; /* Handisport blue */
+  border-top: 4px solid #F26522; 
 }
 .equip-card.handibasket .equip-tag {
   background: rgba(0, 85, 164, 0.1);
@@ -845,7 +845,7 @@ img {
   background: var(--accent-color);
 }
 
-/* Product Modal Styles */
+
 .product-modal {
     position: fixed;
     inset: 0;
@@ -970,7 +970,7 @@ img {
 }
 
 .modal-features li::before {
-    content: "â€¢";
+    content: "Ã¢â‚¬Â¢";
     position: absolute;
     left: 0;
     color: var(--accent-color);
@@ -1039,4 +1039,5 @@ img {
   }
 }
 
-/*# sourceMappingURL=style.css.map */
+
+
